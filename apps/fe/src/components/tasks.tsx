@@ -18,6 +18,7 @@ import { useState } from 'react';
 interface Task {
   _id: number;
   title: string;
+  description: string;
 }
 
 type TaskType = {
@@ -29,7 +30,8 @@ const Tasks = () => {
   const [deleteTask] = useMutation(DELETE_TASK);
   const [editTask] = useMutation(EDIT_TASK);
   const [open, setOpen] = useState(false);
-  const [editInput, setEditInput] = useState('');
+  const [editTitle, setEditTitle] = useState('');
+  const [editDescription, setEditDescription] = useState('');
   const [currentId, setCurrentId] = useState<number | null>(null);
 
   const handleDelete = async (taskId: number) => {
@@ -41,8 +43,10 @@ const Tasks = () => {
     });
   };
 
-  const handleEdit = async (taskId: number) => {
-    setCurrentId(taskId);
+  const handleEdit = async (task: Task) => {
+    setCurrentId(task._id);
+    setEditTitle(task.title);
+    setEditDescription(task.description);
     setOpen(true);
   };
 
@@ -50,12 +54,14 @@ const Tasks = () => {
     await editTask({
       variables: {
         id: { _id: currentId },
-        title: editInput,
+        title: editTitle,
+        description: editDescription,
       },
       refetchQueries: [{ query: GET_TASKS }],
     });
     setOpen(false);
-    setEditInput('');
+    setEditTitle('');
+    setEditDescription('');
   };
 
   if (loading) return <CircularProgress />;
@@ -68,12 +74,21 @@ const Tasks = () => {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="title"
             label="Task Title"
             type="text"
             fullWidth
-            value={editInput}
-            onChange={(e) => setEditInput(e.target.value)}
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            id="description"
+            label="Task Description"
+            type="text"
+            fullWidth
+            value={editDescription}
+            onChange={(e) => setEditDescription(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
@@ -101,7 +116,7 @@ const Tasks = () => {
               >
                 {task.title}
               </div>
-              <Button variant="contained" onClick={() => handleEdit(task._id)}>
+              <Button variant="contained" onClick={() => handleEdit(task)}>
                 Edit
               </Button>
               <Button
