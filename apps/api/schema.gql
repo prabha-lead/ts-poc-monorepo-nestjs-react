@@ -6,7 +6,7 @@ input CreateTaskInput {
   _id: ID!
   description: String
   endDate: DateTime
-  startDate: DateTime = "2023-05-15T07:10:10.800Z"
+  startDate: DateTime = "2023-05-15T07:23:10.346Z"
   status: String = "pending"
   title: String!
 }
@@ -18,7 +18,7 @@ scalar DateTime
 
 type Mutation {
   createTask(input: CreateTaskInput!): Task!
-  deleteTask(id: TaskId!): Task!
+  deleteTask(input: TaskId!): Task!
   updateTask(id: TaskId!, input: UpdateTaskInput!): Task!
 }
 

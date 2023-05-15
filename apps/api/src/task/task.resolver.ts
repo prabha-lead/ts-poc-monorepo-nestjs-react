@@ -30,7 +30,7 @@ export class TasksResolver {
   }
 
   @Mutation(() => Task)
-  async deleteTask(@Args('id', { type: () => TaskId }) id: TaskId) {
+  async deleteTask(@Args('input') id: TaskId) {
     return this.tasksService.deleteTask(id);
   }
 }
