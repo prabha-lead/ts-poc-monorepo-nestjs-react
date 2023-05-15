@@ -1,21 +1,19 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
-import { Task, CreateTaskInput, TaskId, UpdateTaskInput } from './task.schema'
-import { TasksService } from './task.service'
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Task, CreateTaskInput, TaskId, UpdateTaskInput } from './task.schema';
+import { TasksService } from './task.service';
 
 @Resolver()
 export class TasksResolver {
-  constructor(
-    private tasksService: TasksService,
-  ) {}
+  constructor(private tasksService: TasksService) {}
 
   @Query(() => [Task])
   async getTasks() {
-    return this.tasksService.getTasks()
+    return this.tasksService.getTasks();
   }
 
   @Query(() => Task)
-  async getTask(@Args('input') id:TaskId) {
-    return this.tasksService.getTask(id)
+  async getTask(@Args('id', { type: () => TaskId }) id: TaskId) {
+    return this.tasksService.getTask(id);
   }
 
   @Mutation(() => Task)
@@ -24,12 +22,15 @@ export class TasksResolver {
   }
 
   @Mutation(() => Task)
-  async updateTask(@Args('input') id:TaskId, @Args('input') task: UpdateTaskInput) {
-    return this.tasksService.updateTask(id, task)
+  async updateTask(
+    @Args('id', { type: () => TaskId }) id: TaskId,
+    @Args('input') task: UpdateTaskInput
+  ) {
+    return this.tasksService.updateTask(id, task);
   }
 
   @Mutation(() => Task)
-  async deleteTask(@Args('input') id:TaskId) {
-    return this.tasksService.deleteTask(id)
+  async deleteTask(@Args('id', { type: () => TaskId }) id: TaskId) {
+    return this.tasksService.deleteTask(id);
   }
 }

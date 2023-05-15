@@ -28,7 +28,7 @@ export class Task {
   startDate: Date;
 
   @Prop()
-  @Field({ nullable: true})
+  @Field({ nullable: true })
   endDate: Date;
 }
 
@@ -44,14 +44,14 @@ export class CreateTaskInput {
   description?: string;
 
   @Field({ nullable: true })
-  status: string = 'pending'
+  status: string = 'pending';
 
   @Prop()
   @Field()
   startDate: Date = new Date();
 
   @Prop()
-  @Field({ nullable: true})
+  @Field({ nullable: true })
   endDate: Date;
 }
 
@@ -63,8 +63,8 @@ export class TaskId {
 
 @InputType()
 export class UpdateTaskInput {
-  @Field(() => ID)
-  _id: number;
+  // @Field(() => ID)
+  // _id: number;
 
   @Field({ nullable: true })
   title?: string;
@@ -77,10 +77,10 @@ export class UpdateTaskInput {
 
   @Prop()
   @Field({ nullable: true })
-  startDate: Date
+  startDate: Date;
 
   @Prop()
-  @Field({ nullable: true})
+  @Field({ nullable: true })
   endDate: Date;
 }
 

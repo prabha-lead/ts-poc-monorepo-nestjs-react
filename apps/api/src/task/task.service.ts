@@ -1,18 +1,26 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Task, TasksDocument, CreateTaskInput, TaskId, UpdateTaskInput } from './task.schema';
+import {
+  Task,
+  TasksDocument,
+  CreateTaskInput,
+  TaskId,
+  UpdateTaskInput,
+} from './task.schema';
 
 @Injectable()
 export class TasksService {
-  constructor(@InjectModel(Task.name) private tasksModel: Model<TasksDocument>) {}
+  constructor(
+    @InjectModel(Task.name) private tasksModel: Model<TasksDocument>
+  ) {}
 
   async getTasks() {
-    return this.tasksModel.find()
+    return this.tasksModel.find();
   }
 
   async getTask(id: TaskId) {
-    return this.tasksModel.findOne({ _id: id })
+    return this.tasksModel.findOne({ _id: id });
   }
 
   async createTask(task: CreateTaskInput) {
@@ -20,9 +28,7 @@ export class TasksService {
   }
 
   async updateTask(id: TaskId, update: UpdateTaskInput) {
-    return this.tasksModel.findOneAndUpdate({ _id: id }, update, {
-      new: true
-    });
+    return this.tasksModel.findOneAndUpdate({ _id: id }, update);
   }
 
   async deleteTask(taskId: TaskId) {

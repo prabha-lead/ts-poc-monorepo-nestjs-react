@@ -15,7 +15,7 @@
         "main": "apps/fe/src/main.tsx",
         "polyfills": "apps/fe/src/polyfills.ts",
         "tsConfig": "apps/fe/tsconfig.app.json",
-        "assets": ["apps/fe/src/favicon.ico", "apps/fe/src/assets"],
+        "assets": ["apps/fe/src/assets"],
         "styles": ["apps/fe/src/styles.scss"],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
